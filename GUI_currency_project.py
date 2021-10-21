@@ -138,5 +138,5 @@ Label(frame2, text = "Creator: Pongpol Wachiralappaitoon", font = ("Arial", 15))
 Label(frame2, text = "Propose: Natthapong Jungteerapanich", font = ("Arial", 15)).grid(row = 3)
 Label(frame2, text = "Institute: SIIE, KMITL", font = ("Arial", 15)).grid(row = 4)
 
-# Run this roo
+# Run this root
 root.mainloop()
