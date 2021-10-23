@@ -54,7 +54,7 @@ frame1 = Frame(notebook)
 frame2 = Frame(notebook)
 
 # Naming titles
-notebook.add(frame1, text = "Currency converter")
+notebook.add(frame1, text = "Traveller Help")
 notebook.add(frame2, text = "Covid")
 
 # To input float value
