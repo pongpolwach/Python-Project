@@ -6,8 +6,6 @@ from tkinter.colorchooser import *
 from tkinter import ttk
 import requests
 
-from Weather import Des_Overall
-
 # To drag an API from fixer.io
 response = requests.get("http://data.fixer.io/api/latest?access_key=00d8aa0be4f027aa0b7757c5fca58787&format=1")
 data = response.json()
