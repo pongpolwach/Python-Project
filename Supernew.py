@@ -58,9 +58,57 @@ def bgcolour():
     coloeHex = color[1]
     root.config(bg = coloeHex)
 
+def update():
+  # To drag an API from fixer.io
+  response = requests.get("http://data.fixer.io/api/latest?access_key=00d8aa0be4f027aa0b7757c5fca58787&format=1")
+  data = response.json()
+  rates = data["rates"]
+
+  # Covid api
+  response2 = requests.get("https://covid19.ddc.moph.go.th/api/Cases/today-cases-all")
+  data2 = response2.json()
+  data = (data2[0])
+  new_case = data["new_case"]
+  update_time = data["update_date"]
+  a,b=update_time.split(" ")
+  update_time = a+" at "+b
+  new_death = data["new_death"]
+  new_recovered = data["new_recovered"]
+
+  # Weather api
+  response3=requests.get("https://data.tmd.go.th/api/WeatherForecastDaily/V1/")
+  data3=response3.json()
+  DailyForecast = data3["DailyForecast"]
+  Des_Overall = DailyForecast["DescEng"]
+  RegionsForecast = DailyForecast["RegionsForecast"]
+  Northern = RegionsForecast[0]
+  Northeastern = RegionsForecast[1]
+  Central = RegionsForecast[2]
+  Eastern = RegionsForecast[3]
+  Southern_East = RegionsForecast[4]
+  Southern_West = RegionsForecast[5]
+  Metropolitan = RegionsForecast[6]
+  Des_Northern = Northern["DescriptionEng"]
+  Des_Northeasten = Northeastern["DescriptionEng"]
+  Des_Central = Central["DescriptionEng"]
+  Des_Eastern = Eastern["DescriptionEng"]
+  Des_Southern_East = Southern_East["DescriptionEng"]
+  Des_Southern_West = Southern_West["DescriptionEng"]
+  Des_Metropolitan = Metropolitan["DescriptionEng"]
+
+  et3.delete(0, END)
+  et3.insert(0, new_recovered)
+  et4.delete(0, END)
+  et4.insert(0, new_case)
+  et5.delete(0, END)
+  et5.insert(0, new_death)
+  et6.delete(0, END)
+  et6.insert(0, update_time)
+
 # Add command to menu items
 menuitem = Menu()
 menuitem.add_command(label = "Edit Colour", command = bgcolour)
+menuitem.add_command(label = "Update", command= update)
 menuitem.add_command(label = "Exit", command = root.destroy)
 
 # Add menu items to Menu
@@ -171,57 +219,44 @@ Button(frame1, text="Clear", font = ("Arial", 10), width = 15, command = clear).
 
 # To input float value
 text3 = DoubleVar()
-# To show 1 if there is no attemp
 text3.initialize(0)
 
 # To create label
 Label(frame2, text = "New Recovered", font = ("Arial", 10), padx = 10).grid(row = 0, sticky = W)
 et3 = Entry(frame2, font = ("Arial", 10), width = 35, textvariable = text3)
 et3.grid(row = 0, column = 1)
+et3.delete(0, END)
+et3.insert(0, new_recovered)
 
 # To input float value
 text4 = DoubleVar()
-# To show 1 if there is no attemp
-text4.initialize(0)
 
 # To create label
 Label(frame2, text = "New Case", font = ("Arial", 10), padx = 10).grid(row = 1, sticky = W)
 et4 = Entry(frame2, font = ("Arial", 10), width = 35, textvariable = text4)
 et4.grid(row = 1, column = 1)
+et4.delete(0, END)
+et4.insert(0, new_case)
 
 # To input float value
 text5 = DoubleVar()
-# To show 1 if there is no attemp
-text5.initialize(0)
 
 # To create label
 Label(frame2, text = "New Deaths", font = ("Arial", 10), padx = 10).grid(row = 2, sticky = W)
 et5 = Entry(frame2, font = ("Arial", 10), width = 35, textvariable = text5)
 et5.grid(row = 2, column = 1)
+et5.delete(0, END)
+et5.insert(0, new_death)
 
 # To input float value
 text6 = DoubleVar()
-# To show 1 if there is no attemp
-text6.initialize(0)
 
 # To create label
 Label(frame2, text = "Updated Time", font = ("Arial", 10), padx = 10).grid(row = 3, sticky = W)
 et6 = Entry(frame2, font = ("Arial", 10), width = 35, textvariable = text6)
 et6.grid(row = 3, column = 1)
-
-# To define update
-def covidupdate():
-  et3.delete(0, END)
-  et4.delete(0, END)
-  et5.delete(0, END)
-  et6.delete(0, END)
-  et3.insert(0, new_recovered)
-  et4.insert(0, new_case)
-  et5.insert(0, new_death)
-  et6.insert(0, update_time)
-
-# Create update button
-Button(frame2, text="Update", font = ("Arial", 10),width = 15, command = covidupdate).grid(row = 4, column = 1, sticky = W)
+et6.delete(0, END)
+et6.insert(0, update_time)
 
 # To Create space
 Label(frame3, text = "").grid(row = 0, sticky = W)
