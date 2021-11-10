@@ -149,13 +149,16 @@ def clear():
   combo2.delete(0, END)
   combo1.insert(0, "Please choose a currency")
   combo2.insert(0, "Please choose a currency")
+  amount.initialize(1)
 
 # Create calculate function
 def calculate():
   a = amount.get()
+  a=float(a)
   unit1 = choice.get()
   unit2 = choice2.get()
-  if float(a) >= 0:
+  if a>=0:
+    et2.delete(0, END)
     result = round(float(a) * (float(rates[unit2]) / float(rates[unit1])), 3)
     et2.insert(0, result)
   # For those who entered negative amount  
@@ -256,7 +259,7 @@ def Forecastupdate():
       messagebox.showerror("Error","No Key")          
 
 # Create update button
-Button(frame3, text="Update", font = ("Arial", 10),width = 15, command = Forecastupdate).grid(row = 3, column = 1, sticky = W)
+Button(frame3, text="Show", font = ("Arial", 10),width = 15, command = Forecastupdate).grid(row = 3, column = 1, sticky = W)
 
 # Run this root
 root.mainloop()
